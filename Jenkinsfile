@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Docker Hub Push') {
             steps {
-                withCredentials([usernameColonPassword(credentialsId: 'dockerhub_idd', variable: 'dockerhubPwd')]) {
+                withCredentials([string(credentialsId: 'dockerhub_id', variable: 'dockerhubPwd')]) {
                     sh "docker login -u huzaifaabbasi1122 -p ${dockerhubPwd}"
                     sh "docker push huzaifaabbasi1122/react:${DOCKER_TAG}"
                 }
