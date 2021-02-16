@@ -22,16 +22,8 @@ pipeline {
             steps {
                 sh 'chmod +x changeTag.sh'
                 sh "./changeTag.sh ${DOCKER_TAG}"
-                sshagent(credentials: ['kops-machine'], ignoreMissing: true) {
-                    sh "sshpass -p ${password} scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml root@192.168.136.21:/home/centos/"
-                    script{
-                        try {
-                            sh 'ssh root@192.168.136.21 kubectl apply -f .'
-                        }catch (error) {
-                            sh 'ssh root@192.168.136.21 kubectl apply -f .'
-                        }
-                    }
-                }
+                sh "sshpass -p ${password} scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml root@192.168.136.21:/home/centos/"
+                sh 'ssh root@192.168.136.21 kubectl apply -f .'
             }
         }
     }
