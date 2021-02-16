@@ -22,7 +22,7 @@ pipeline {
             steps {
                 sh 'chmod +x changeTag.sh'
                 sh "./changeTag.sh ${DOCKER_TAG}"
-                sh "sshpass -p ${password} scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml root@192.168.136.21:/home/centos/"
+                sh "sshpass -p ${password} scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml root@192.168.136.21:~"
                 sh 'ssh root@192.168.136.21 kubectl apply -f .'
             }
         }
