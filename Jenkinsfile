@@ -1,17 +1,25 @@
-pipeline{
+pipeline {
     agent any
-    environment{
+    environment {
         DOCKER_TAG = getDockerTag()
     }
-    stages{
-        stage("Build Docker Image"){
-            steps{
+    stages {
+        stage('Build Docker Image') {
+            steps {
                 sh "docker build . -t huzaifaabbasi1122/react:${DOCKER_TAG} "
+            }
+        }
+        stage('Docker Hub Push') {
+            steps {
+                withCredentials([usernameColonPassword(credentialsId: 'dockerhub_idd', variable: 'dockerhubPwd')]) {
+                    sh "docker login -u huzaifaabbasi1122 -p ${dockerhubPwd}"
+                    sh "docker push huzaifaabbasi1122/react:${DOCKER_TAG}"
+                }
             }
         }
     }
 }
-def getDockerTag(){
+def getDockerTag() {
     def tag  = sh script: 'git rev-parse HEAD', returnStdout: true
     return tag
 }
