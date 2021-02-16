@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_TAG = getDockerTag()
-        password = centos1234
+        password = 'centos1234'
     }
     stages {
         stage('Build Docker Image') {
