@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_TAG = getDockerTag()
+        password = centos1234
     }
     stages {
         stage('Build Docker Image') {
@@ -22,7 +23,7 @@ pipeline {
                 sh 'chmod +x changeTag.sh'
                 sh "./changeTag.sh ${DOCKER_TAG}"
                 sshagent(credentials: ['kops-machine'], ignoreMissing: true) {
-                    sh 'scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml root@192.168.136.21:/home/centos/'
+                    sh "sshpass -p ${password} scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml root@192.168.136.21:/home/centos/"
                     script{
                         try {
                             sh 'ssh root@192.168.136.21 kubectl apply -f .'
