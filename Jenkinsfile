@@ -27,7 +27,7 @@ pipeline {
                         try {
                             sh "ssh master-1@192.168.136.21 kubectl apply -f ."
                         }
-                        catch {
+                        catch (error) {
                             sh "ssh master-1@192.168.136.21 kubectl create -f ."
                         }
                     }
