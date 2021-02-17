@@ -9,4 +9,4 @@ spec:
     - name: nodeapp
       image: huzaifaabbasi1122/react:tagVersion
       ports:
-        - containerPort: 8080
+        - containerPort: 8000
