@@ -7,6 +7,6 @@ spec:
     app: nodeapp
   ports:
   - protocol: TCP
-    port: 8020
-    targetPort: 8000
+    port: 80
+    targetPort: 8080
   type: LoadBalancer 
