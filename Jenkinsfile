@@ -2,18 +2,13 @@ pipeline {
     agent any
     environment {
         DOCKER_TAG = getDockerTag()
-        CC = """${sh(
+        CC = '''${sh(
                 returnStdout: true,
-                script: 'echo "Please enter version number"
+                script: "echo 'Please enter version number'
                          read version
                          echo $version
-                '
-            )}"""
-        // Using returnStatus
-        EXIT_STATUS = """${sh(
-                returnStatus: true,
-                script: 'exit 1'
-            )}"""
+                "
+            )}'''
     }
     stages {
         stage('Build Docker Image') {
