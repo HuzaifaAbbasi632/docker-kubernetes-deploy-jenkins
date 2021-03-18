@@ -33,6 +33,6 @@ pipeline {
     }
 }
 def getDockerTag() {
-    def tag = input message: 'Need some input', parameters: [string(defaultValue: '', description: '', name: 'Give me a value')]
+    def tag = input message: 'Please Enter Value', parameters: [string(defaultValue: '', description: '', name: 'Version Number')]
     return tag
 }
