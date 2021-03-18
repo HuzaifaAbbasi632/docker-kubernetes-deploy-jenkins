@@ -8,7 +8,7 @@ pipeline {
             agent none
             steps {
                 script {
-                    env.TAG_ON_DOCKER_HUB = input message: 'User input required for version number'
+                    env.TAG_ON_DOCKER_HUB = input message: 'Need some input', parameters: [string(defaultValue: '', description: '', name: 'Give me a value')]
                     echo "TAG: ${env.TAG_ON_DOCKER_HUB}"
                 }
             }
