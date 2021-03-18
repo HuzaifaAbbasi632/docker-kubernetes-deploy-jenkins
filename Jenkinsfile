@@ -2,17 +2,12 @@ pipeline {
     agent any
     environment {
         DOCKER_TAG = getDockerTag()
-        CC = '''${sh(
-                returnStdout: true,
-                script: "echo 'Please enter version number'
-                         read version
-                         echo $version
-                "
-            )}'''
     }
     stages {
         stage('Build Docker Image') {
             steps {
+                def USER_INPUT = input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                echo "Version is ${USER_INPUT}"
                 sh "docker build . -t huzaifaabbasi1122/react:${DOCKER_TAG} "
             }
         }
