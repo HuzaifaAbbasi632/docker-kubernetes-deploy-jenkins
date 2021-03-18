@@ -26,7 +26,7 @@ pipeline {
                         sshpass -p ${machine_pass} ssh -t -o StrictHostKeyChecking=no root@192.168.136.21 << Here
                           scp node-app-pod.yml root@192.168.136.21:~
                           scp services.yml root@192.168.136.21:~
-                          ssh root@192.168.136.21 kubectl apply -f . "
+                          ssh root@192.168.136.21 kubectl apply -f .
                     '''
                 }
             }
