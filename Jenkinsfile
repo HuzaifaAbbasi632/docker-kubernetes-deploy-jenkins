@@ -4,10 +4,18 @@ pipeline {
         DOCKER_TAG = getDockerTag()
     }
     stages {
+        stage('Decide tag on Docker Hub') {
+            agent none
+            steps {
+                script {
+                    env.TAG_ON_DOCKER_HUB = input message: 'User input required for version number',
+                    parameters: [choice(name: 'Tag on Docker Hub', description: 'Please Type Version number')]
+                    echo " TAG: ${env.TAG_ON_DOCKER_HUB}"
+                }
+            }
+        }
         stage('Build Docker Image') {
             steps {
-                def USER_INPUT = input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                echo "Version is ${USER_INPUT}"
                 sh "docker build . -t huzaifaabbasi1122/react:${DOCKER_TAG} "
             }
         }
