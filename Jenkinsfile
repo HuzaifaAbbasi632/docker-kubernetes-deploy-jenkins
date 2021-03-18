@@ -2,6 +2,18 @@ pipeline {
     agent any
     environment {
         DOCKER_TAG = getDockerTag()
+        CC = """${sh(
+                returnStdout: true,
+                script: 'echo "Please enter version number"
+                         read version
+                         echo $version
+                '
+            )}"""
+        // Using returnStatus
+        EXIT_STATUS = """${sh(
+                returnStatus: true,
+                script: 'exit 1'
+            )}"""
     }
     stages {
         stage('Build Docker Image') {
@@ -33,10 +45,6 @@ pipeline {
     }
 }
 def getDockerTag() {
-    def tag  = sh script: '#!/bin/bash
-                           echo "Enter Version Number"
-                           read version
-                           echo $version
-                        ', returnStdout: true
+    def tag  = sh script: 'git rev-parse --short HEAD', returnStdout: true
     return tag
 }
