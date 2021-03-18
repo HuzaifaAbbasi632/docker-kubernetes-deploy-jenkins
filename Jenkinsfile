@@ -9,7 +9,6 @@ pipeline {
             steps {
                 script {
                     env.TAG_ON_DOCKER_HUB = input message: 'User input required for version number',
-                    parameters: [choice(name: 'Tag on Docker Hub', description: 'Please Type Version number')]
                     echo " TAG: ${env.TAG_ON_DOCKER_HUB}"
                 }
             }
