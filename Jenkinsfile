@@ -4,15 +4,6 @@ pipeline {
         DOCKER_TAG = getDockerTag()
     }
     stages {
-        stage('Decide tag on Docker Hub') {
-            agent none
-            steps {
-                script {
-                    env.TAG_ON_DOCKER_HUB = input message: 'Need some input', parameters: [string(defaultValue: '', description: '', name: 'Give me a value')]
-                    echo "TAG: ${env.TAG_ON_DOCKER_HUB}"
-                }
-            }
-        }
         stage('Build Docker Image') {
             steps {
                 sh "docker build . -t huzaifaabbasi1122/react:${DOCKER_TAG} "
@@ -42,6 +33,6 @@ pipeline {
     }
 }
 def getDockerTag() {
-    def tag  = sh script: 'git rev-parse --short HEAD', returnStdout: true
+    def tag = input message: 'Need some input', parameters: [string(defaultValue: '', description: '', name: 'Give me a value')]
     return tag
 }
