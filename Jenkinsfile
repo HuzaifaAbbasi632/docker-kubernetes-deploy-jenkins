@@ -33,6 +33,10 @@ pipeline {
     }
 }
 def getDockerTag() {
-    def tag  = sh script: 'read version', returnStdout: true
+    def tag  = sh script: '#!/bin/bash
+                           echo "Enter Version Number"
+                           read version
+                           echo $version
+                        ', returnStdout: true
     return tag
 }
