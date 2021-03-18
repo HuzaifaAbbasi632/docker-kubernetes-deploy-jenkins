@@ -23,11 +23,9 @@ pipeline {
                 sh "./changeTag.sh ${DOCKER_TAG}"
                 withCredentials([string(credentialsId: 'machine_pass', variable: 'machine_pass')]) {
                     sh '''
-                       sshpass -p ${machine_pass} ssh -t -o StrictHostKeyChecking=no root@192.168.136.21 << here
-                          scp -o StrictHostKeyChecking=no node-app-pod.yml root@192.168.136.21:~
-                          scp -o StrictHostKeyChecking=no services.yml root@192.168.136.21:~
-                          ls
-                          kubectl apply -f .
+                       sshpass -p ${machine_pass} scp -o StrictHostKeyChecking=no node-app-pod.yml root@192.168.136.21:~
+                       sshpass -p ${machine_pass} scp -o StrictHostKeyChecking=no services.yml root@192.168.136.21:~
+                       sshpass -p ${machine_pass} ssh root@192.168.136.21 kubectl apply -f .
                     '''
                 }
             }
