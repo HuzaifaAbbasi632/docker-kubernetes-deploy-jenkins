@@ -1,8 +1,9 @@
 pipeline {
     agent any
-    /*environment {
-        DOCKER_TAG = getDockerTag()
-    }*/
+    environment {
+        //DOCKER_TAG = getDockerTag()
+        EMAIL_INFORM = 'zaifyabbasi51@gmail.com;muhammad.huzaifa@aksa-sds.com'
+    }
     stages {
         stage('Tag Validation'){
            steps{ 
@@ -42,6 +43,12 @@ pipeline {
                        sshpass -p ${machine_pass} ssh root@192.168.136.21 kubectl apply -f .
                     '''
                 }
+            }
+        }
+        post {
+            always {
+                emailext attachLog: true, body: "${currentBuild.result}: ${BUILD_URL}", compressLog: true,
+                subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", to: '${EMAIL_INFORM}'
             }
         }
     }
