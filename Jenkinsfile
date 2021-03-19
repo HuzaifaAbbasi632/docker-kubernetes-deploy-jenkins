@@ -1,9 +1,20 @@
 pipeline {
     agent any
-    environment {
-        DOCKER_TAG = getDockerTag()
-    }
     stages {
+        stage('Docker Version Validation'){
+           steps{ 
+              script { 
+               try {
+                    timeout(time:10, unit:'SECONDS') {
+                        days = input message: 'Please Enter Number', ok: 'Fetch Statistics', parameters: [string(defaultValue: '', description: 'Version', name: 'Version', trim: true)] 
+                    }
+                }
+                catch (err){
+                   error("No custom value has been entered for number of days.")
+                }
+            }
+        }
+    }
         stage('Build Docker Image') {
             steps {
                 sh "docker build . -t huzaifaabbasi1122/react:${DOCKER_TAG} "
@@ -31,8 +42,4 @@ pipeline {
             }
         }
     }
-}
-def getDockerTag() {
-    def tag = input message: 'Please Enter Value', parameters: [string(defaultValue: '', description: '', name: 'Version Number')]
-    return tag
 }
