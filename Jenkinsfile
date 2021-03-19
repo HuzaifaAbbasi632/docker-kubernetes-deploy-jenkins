@@ -11,14 +11,13 @@ pipeline {
                     timeout(time:60, unit:'SECONDS') {
                         DOCKER_TAG = input message: 'Please Enter Version', ok: 'OK', parameters: [string(defaultValue: '', description: 'Version', name: 'Version')] 
                     }
-                if($DOCKER_TAG == ''){
-                    error("Build failed because of this and that..")
-                }
                 }
                 catch (err){
                    error("No Value Entered ${err}")
                 }
-                
+                if($DOCKER_TAG == ''){
+                    error("Build failed because of this and that..")
+                }
             }
         }
     }
