@@ -4,19 +4,20 @@ pipeline {
         DOCKER_TAG = getDockerTag()
     }*/
     stages {
-        stage('master'){
+        stage('Tag Validation'){
            steps{ 
               script { 
                try {
-                    timeout(time:60, unit:'SECONDS') {
+                    timeout(time:30, unit:'SECONDS') {
                         DOCKER_TAG = input message: 'Please Enter Version', ok: 'OK', parameters: [string(defaultValue: '', description: 'Version', name: 'Version')] 
                     }
                 }
                 catch (err){
                    error("No Value Entered ${err}")
                 }
-                if($DOCKER_TAG == ''){
+                if($DOCKER_TAG == null){
                     error("Build failed because of this and that..")
+                    return 0
                 }
             }
         }
