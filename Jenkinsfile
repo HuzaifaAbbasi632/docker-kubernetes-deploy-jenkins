@@ -11,7 +11,7 @@ pipeline {
                     timeout(time:30, unit:'SECONDS') {
                         DOCKER_TAG = input message: 'Please Enter Version', ok: 'OK', parameters: [string(defaultValue: '', description: 'Version', name: 'Version', trim: true)] 
                     }
-                if( $DOCKER_TAG == "" ) {
+                if( $DOCKER_TAG == "" ){
                     error("Build failed because of this and that..")
                 }
                 }
