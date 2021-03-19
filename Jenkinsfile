@@ -15,7 +15,7 @@ pipeline {
                 catch (err){
                    error("No Value Entered ${err}")
                 }
-                if($DOCKER_TAG == null){
+                if($DOCKER_TAG == ''){
                     error("Build failed because of this and that..")
                     return 0
                 }
