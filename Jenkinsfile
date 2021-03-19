@@ -1,16 +1,23 @@
 pipeline {
     agent any
+    /*environment {
+        DOCKER_TAG = getDockerTag()
+    }*/
     stages {
-        stage('Docker Version Validation'){
+        stage('master'){
            steps{ 
               script { 
                try {
-                    timeout(time:10, unit:'SECONDS') {
-                        DOCKER_TAG = input message: 'Please Enter Number', ok: 'OK', parameters: [string(defaultValue: '', description: 'Version', name: 'Version', trim: true)] 
+                    timeout(time:30, unit:'SECONDS') {
+                        DOCKER_TAG = input message: 'Please Enter Version', ok: 'OK', parameters: [string(defaultValue: '', description: 'Version', name: 'Version', trim: true)] 
                     }
                 }
                 catch (err){
-                   error("Version not entered")
+                   error("No Value Entered")
+                }
+                if( $DOCKER_TAG == "" ) {
+                    currentBuild.result = 'Failed'
+                    return
                 }
             }
         }
@@ -43,3 +50,7 @@ pipeline {
         }
     }
 }
+/*def getDockerTag() {
+    def tag = input message: 'Please Enter Value', parameters: [string(defaultValue: '', description: '', name: 'Version Number')]
+    return tag
+}*/
