@@ -6,11 +6,11 @@ pipeline {
               script { 
                try {
                     timeout(time:10, unit:'SECONDS') {
-                        days = input message: 'Please Enter Number', ok: 'Fetch Statistics', parameters: [string(defaultValue: '', description: 'Version', name: 'Version', trim: true)] 
+                        DOCKER_TAG = input message: 'Please Enter Number', ok: 'OK', parameters: [string(defaultValue: '', description: 'Version', name: 'Version', trim: true)] 
                     }
                 }
                 catch (err){
-                   error("No custom value has been entered for number of days.")
+                   error("Version not entered")
                 }
             }
         }
