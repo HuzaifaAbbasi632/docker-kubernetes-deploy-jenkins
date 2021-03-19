@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         //DOCKER_TAG = getDockerTag()
-        EMAIL_INFORM = 'zaifyabbasi51@gmail.com;muhammad.huzaifa@aksa-sds.com'
+        //EMAIL_INFORM = 'zaifyabbasi51@gmail.com;muhammad.huzaifa@aksa-sds.com'
     }
     stages {
         stage('Tag Validation'){
@@ -49,7 +49,7 @@ pipeline {
     post {
         always {
             emailext attachLog: true, body: "${currentBuild.result}: ${BUILD_URL}", compressLog: true,
-            subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", to: '${EMAIL_INFORM}'
+            subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", to: 'zaifyabbasi51@gmail.com'
         }
     }
 }
