@@ -16,8 +16,7 @@ pipeline {
                    error("No Value Entered")
                 }
                 if( $DOCKER_TAG == "" ) {
-                    currentBuild.result = 'Failed'
-                    return
+                    error("Build failed because of this and that..")
                 }
             }
         }
