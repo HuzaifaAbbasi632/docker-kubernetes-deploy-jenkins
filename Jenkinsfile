@@ -1,9 +1,9 @@
 pipeline {
     agent any
-    //environment {
+    environment {
         //DOCKER_TAG = getDockerTag()
         EMAIL_INFORM = 'zaifyabbasi51@gmail.com;muhammad.huzaifa@aksa-sds.com'
-    //}
+    }
     stages {
         stage('Tag Validation'){
            steps{ 
