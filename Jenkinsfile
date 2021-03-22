@@ -1,4 +1,4 @@
-pipeline {
+pipeline{
     agent any
     environment {
         //DOCKER_TAG = getDockerTag()
@@ -6,8 +6,8 @@ pipeline {
     }
     stages {
         stage('Tag Validation'){
-           steps{ 
-              script { 
+           steps{
+              script {
                try {
                     timeout(time:30, unit:'SECONDS') {
                         DOCKER_TAG = input message: 'Please Enter Version', ok: 'OK', parameters: [string(defaultValue: '', description: 'Version', name: 'Version')] 
@@ -48,8 +48,10 @@ pipeline {
     }
     post {
         always {
-            emailext attachLog: true, body: "${currentBuild.result}: ${BUILD_URL}", compressLog: true,
-            subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", to: "${EMAIL_INFORM}"
+            emailext attachLog: true,
+            subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}",
+            body: "Status ${currentBuild.currentResult}:\nJOB ${env.JOB_NAME}\nBUILD# ${env.BUILD_NUMBER}\nMore info at: ${env.BUILD_URL}",
+            to: "${EMAIL_INFORM}"
         }
     }
 }
