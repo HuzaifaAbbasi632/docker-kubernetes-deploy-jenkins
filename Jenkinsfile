@@ -48,10 +48,8 @@ pipeline {
     }
     post {
         always {
-            emailext attachLog: true,
-            subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}",
-            body: "Status ${currentBuild.currentResult}: \n Job ${env.JOB_NAME} \n build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
-            to: "${EMAIL_INFORM}"
+            emailext attachLog: true, body: "${currentBuild.result}: ${BUILD_URL}", compressLog: true,
+            subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", to: "${EMAIL_INFORM}"
         }
     }
 }
