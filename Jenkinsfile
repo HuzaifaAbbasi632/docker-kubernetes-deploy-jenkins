@@ -9,7 +9,7 @@ pipeline{
            steps{
               script {
                try {
-                    timeout(time:30, unit:'SECONDS') {
+                    timeout(time:60, unit:'SECONDS') {
                         DOCKER_TAG = input message: 'Please Enter Version', ok: 'OK', parameters: [string(defaultValue: '', description: 'Version', name: 'Version')] 
                     }
                 }
