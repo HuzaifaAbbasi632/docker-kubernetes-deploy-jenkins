@@ -4,7 +4,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1 style={{color:'red'}}>Version 1.0.16</h1>
+      <h1 style={{color:'red'}}>Version 1.0.17</h1>
     </div>
   );
 }
