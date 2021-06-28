@@ -7,6 +7,6 @@ metadata:
 spec:
   containers:
     - name: nodeapp
-      image: huzaifaabbasi1122/react:tagVersion
+      image: huzaifaabbasi1122/jenkins-react:tagVersion
       ports:
         - containerPort: 3000
